@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: adventure-news-web
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
+
+  - type: worker
+    name: adventure-news-worker
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scheduler.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
