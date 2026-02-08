@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - מגמות בעולם האדוונצ'ר{% endblock %}
+
+{% block extra_css %}
+<style>
+    .article-container {
+        max-width: 900px;
+        margin: 3rem auto;
+        background: white;
+        border-radius: 15px;
+        padding: 3rem;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .article-header {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border);
+    }
+    
+    .article-meta {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-gray);
+        font-size: 0.9rem;
+    }
+    
+    .article-title {
+        font-size: 2.5rem;
+        color: var(--text-dark);
+        font-weight: 800;
+        line-height: 1.3;
+        margin-bottom: 1.5rem;
+    }
+    
+    .article-summary {
+        font-size: 1.2rem;
+        color: var(--text-gray);
+        line-height: 1.8;
+        padding: 1.5rem;
+        background: var(--bg-light);
+        border-right: 4px solid var(--primary);
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    
+    .article-content {
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: var(--text-dark);
+    }
+    
+    .article-content p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .source-link {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        margin-top: 2rem;
+        transition: all 0.3s;
+    }
+    
+    .source-link:hover {
+        background: var(--text-dark);
+        transform: translateY(-2px);
+    }
+    
+    .back-button {
+        display: inline-block;
+        color: var(--text-gray);
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        transition: color 0.3s;
+    }
+    
+    .back-button:hover {
+        color: var(--primary);
+    }
+    
+    @media (max-width: 768px) {
+        .article-container {
+            padding: 2rem 1.5rem;
+            margin: 1rem;
+        }
+        
+        .article-title {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="/" class="back-button">← חזרה לעמוד הראשי</a>
+    
+    <article class="article-container">
+        <div class="article-header">
+            <div class="article-meta">
+                <span class="meta-item">📡 {{ article.source }}</span>
+                <span class="meta-item">📅 {{ article.published_date or 'לאחרונה' }}</span>
+                <span class="meta-item">🏷️ {{ article.category }}</span>
+            </div>
+            
+            <h1 class="article-title">{{ article.title }}</h1>
+        </div>
+        
+        {% if article.summary %}
+        <div class="article-summary">
+            {{ article.summary }}
+        </div>
+        {% endif %}
+        
+        <div class="article-content">
+            {% if article.content %}
+                {% for paragraph in article.content.split('\n\n') %}
+                    <p>{{ paragraph }}</p>
+                {% endfor %}
+            {% else %}
+                <p>{{ article.summary }}</p>
+            {% endif %}
+        </div>
+    </article>
+</div>
+{% endblock %}
