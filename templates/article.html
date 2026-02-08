@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+<h2>{{ article.title }}</h2>
+<p style="white-space: pre-line;">{{ article.content }}</p>
+<div class="footer-note">
+מקור: {{ article.source }}<br>
+כל הזכויות שמורות לבעלי התוכן המקוריים.
+</div>
+</div>
+{% endblock %}

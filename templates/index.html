@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% for a in articles %}
+<div class="card">
+<h2>{{ a.title }}</h2>
+<p>{{ a.content[:400] }}...</p>
+<a href="/article/{{ a.id }}">לכתבה המלאה</a>
+</div>
+{% endfor %}
+{% endblock %}
